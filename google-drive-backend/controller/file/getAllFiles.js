@@ -25,8 +25,6 @@ async function getFiles({ name, format }) {
     findFileQuery.format = format.toUpperCase();
   }
 
-  console.log('findFileQuery', findFileQuery);
-
   const files = await findMany(
     Files,
     findFileQuery,

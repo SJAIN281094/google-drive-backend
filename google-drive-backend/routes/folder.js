@@ -7,6 +7,7 @@ const {
   getFolderSize,
   deleteFolder,
   updateFolder,
+  deleteFolderV2,
 } = require('../controller/folder');
 
 router.post(
@@ -103,6 +104,31 @@ router.patch(
     ValidateAndSanitize(req, res, next);
   },
   updateFolder
+);
+
+router.delete(
+  '/v2',
+  [
+    checkSchema({
+      folderId: {
+        in: ['body'],
+        isString: true,
+        isLength: {
+          errorMessage: `FolderId can't be empty`,
+          options: {
+            min: 1,
+          },
+        },
+      },
+    }),
+    header(['Accept'])
+      .exists({ checkFalsy: true })
+      .withMessage('Accept header is missing'),
+  ],
+  (req, res, next) => {
+    ValidateAndSanitize(req, res, next);
+  },
+  deleteFolderV2
 );
 
 module.exports = router;

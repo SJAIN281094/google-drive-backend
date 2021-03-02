@@ -23,7 +23,7 @@ const filesSchema = new mongoose.Schema(
       required: true,
     },
     folderId: {
-      type: mongoose.ObjectId,
+      type: [{ type: String }],
       required: true,
     },
   },

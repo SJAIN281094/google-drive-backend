@@ -93,6 +93,17 @@ const removeOne = async (model, query) => {
   }
 };
 
+const removeMany = async (model, query) => {
+  try {
+    const removed = await model.deleteMany({
+      ...query,
+    });
+    return removed;
+  } catch (err) {
+    throw new CustomError(err, 500);
+  }
+};
+
 const findCount = async (model, query) => {
   try {
     const doc = await model.countDocuments({ ...query }).exec();
@@ -110,4 +121,5 @@ module.exports = {
   findOneOrCreate,
   createOne,
   updateOne,
+  removeMany,
 };
